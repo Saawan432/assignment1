@@ -1,34 +1,22 @@
-import React, { useState } from 'react';
+
+import  { useState } from 'react';
+import data from './assets/Data';
 import LeftScreen from './components/LeftScreen';
 import MainScreen from './components/MainScreen';
-import data from './assets/Data';
-
 const App = () => {
   const [selectedChat, setSelectedChat] = useState(null);
-  const [showMainScreen, setShowMainScreen] = useState(false); // State to manage visibility of MainScreen on mobile
 
-  const handleChatClick = (chat: any) => {
+  const handleChatClick = (chat:any) => {
     setSelectedChat(chat);
-    setShowMainScreen(true); // Show MainScreen on chat click for mobile view
-  };
-
-  const handleBackClick = () => {
-    setSelectedChat(null); // Reset selected chat on back click
-    setShowMainScreen(false); // Hide MainScreen again after clicking back
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-5">
-      {/* LeftScreen */}
-      <div className="lg:w-2/5">
+    <div className="flex">
+      <div className="w-full lg:w-1/3">
         <LeftScreen data={data} onChatClick={handleChatClick} />
       </div>
-
-      {/* MainScreen or Back Button */}
-      <div className={`lg:w-3/5 ${showMainScreen ? 'block' : 'hidden'}`}>
-        {selectedChat && (
-          <MainScreen chat={selectedChat} onBack={handleBackClick} />
-        )}
+      <div className="hidden lg:block w-2/3">
+        {selectedChat && <MainScreen chat={selectedChat} />}
       </div>
     </div>
   );

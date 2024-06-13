@@ -17,21 +17,20 @@ const LeftScreen: React.FC<Props> = ({ data, onChatClick }) => {
 
   const handleOptionClick = (option: string, userId: string) => {
     console.log(`Option: ${option} clicked for user: ${userId}`);
-
+  
     if (option === 'Delete') {
-      // Remove the user from chats
-      const updatedChats = chats.filter(user => user.userId !== userId);
+
+      const updatedChats = chats.filter((user:any) => {user.userId !== userId});
+      console.log(updatedChats,"updatedChats",chats)
       setChats(updatedChats);
     }
-
-    setOpenDropdown(null); // Close dropdown after action
+  
+    setOpenDropdown(null); 
   };
+  
 
   const handleChatItemClick = (item: User) => {
-    // Invoke the onChatClick handler to handle the chat item click
     onChatClick(item);
-
-    // Set unreadCount to 0 for the clicked user
     const updatedChats = chats.map(user =>
       user.userId === item.userId ? { ...user, unreadCount: 0 } : user
     );
@@ -69,7 +68,7 @@ const LeftScreen: React.FC<Props> = ({ data, onChatClick }) => {
             <span className="text-gray-500 text-sm">
               {latestChat.user1 ? latestChat.user1.timeStamp : latestChat.user2 ? latestChat.user2.timeStamp : latestChat.you.timeStamp}
             </span>
-            {item.unreadCount > 0 && ( // Conditionally render unread count if it's greater than 0
+            {item.unreadCount > 0 && (
               <div className="ml-2 mt-1">
                 <span className="bg-green-500 rounded-full px-2 py-1 text-xs text-white">{item.unreadCount}</span>
               </div>

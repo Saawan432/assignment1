@@ -1,5 +1,7 @@
+
+
 import React, { useState } from 'react';
-import { attachmentIcon, voiceIcon, sendIcon } from "../assets/Icon";
+import { attachmentIcon, voiceIcon, sendIcon, phoneIcon, videoIcon, threeDotsIcon } from "../assets/Icon";
 import { User, ChatMessage } from "../assets/interfaces";
 
 interface Props {
@@ -7,7 +9,7 @@ interface Props {
 }
 
 const MainScreen: React.FC<Props> = ({ chat }) => {
-  console.log(chat,"0o0o0o0o0o0oo123")
+  console.log(chat, "0o0o0o0o0o0oo123")
   const [newMessage, setNewMessage] = useState('');
 
   const handleSendMessage = () => {
@@ -18,7 +20,7 @@ const MainScreen: React.FC<Props> = ({ chat }) => {
           timeStamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
       };
-      chat.chat.push(newChatMessage); // Add your message to the chat object
+      chat.chat.push(newChatMessage);
       setNewMessage('');
     }
   };
@@ -38,46 +40,50 @@ const MainScreen: React.FC<Props> = ({ chat }) => {
           <span className="text-sm text-gray-600">Click here for contact info</span>
         </div>
         <div className="flex gap-3">
-          {/* Add your icons here */}
+
+          {phoneIcon}
+          {videoIcon}
+          {threeDotsIcon}
+
         </div>
       </div>
 
-    
-       <div className="flex flex-col flex-grow p-4 bg-gray-50 overflow-y-auto">
-      {chat.chat.map((msg:any, index:any) => {
-        const userMessage = msg[chat.userId];
-        const youMessage = msg.you;
 
-       
-        const renderUserMessage = () => (
-          <div className="flex justify-start mb-2">
-            <div className="rounded-lg p-2 max-w-xs bg-white text-left">
-              <p className="text-sm">{userMessage.message}</p>
-              <span className="text-xs text-gray-500 block mt-1">{userMessage.timeStamp}</span>
+      <div className="flex flex-col flex-grow p-4 bg-gray-50 overflow-y-auto">
+        {chat.chat.map((msg: any, index: any) => {
+          const userMessage = msg[chat.userId];
+          const youMessage = msg.you;
+
+
+          const renderUserMessage = () => (
+            <div className="flex justify-start mb-2">
+              <div className="rounded-lg p-2 max-w-xs bg-white text-left">
+                <p className="text-sm">{userMessage.message}</p>
+                <span className="text-xs text-gray-500 block mt-1">{userMessage.timeStamp}</span>
+              </div>
             </div>
-          </div>
-        );
+          );
 
-    
-        const renderYouMessage = () => (
-          <div className="flex justify-end mb-2">
-            <div className="rounded-lg p-2 max-w-xs bg-green-100 text-right">
-              <p className="text-sm">{youMessage.message}</p>
-              <span className="text-xs text-gray-500 block mt-1">{youMessage.timeStamp}</span>
+
+          const renderYouMessage = () => (
+            <div className="flex justify-end mb-2">
+              <div className="rounded-lg p-2 max-w-xs bg-green-100 text-right">
+                <p className="text-sm">{youMessage.message}</p>
+                <span className="text-xs text-gray-500 block mt-1">{youMessage.timeStamp}</span>
+              </div>
             </div>
-          </div>
-        );
+          );
 
-        return (
-          <React.Fragment key={index}>
-            {userMessage && renderUserMessage()}
-            {youMessage && renderYouMessage()}
-          </React.Fragment>
-        );
-      })}
-    </div>
+          return (
+            <React.Fragment key={index}>
+              {userMessage && renderUserMessage()}
+              {youMessage && renderYouMessage()}
+            </React.Fragment>
+          );
+        })}
+      </div>
 
-      {/* Message Input */}
+
       <div className="flex items-center p-3 bg-gray-100">
         <button className="p-2">{attachmentIcon}</button>
         <button className="p-2">{voiceIcon}</button>
